@@ -1,0 +1,55 @@
+version: 1
+# Copyright (c) 2004 Novell, Inc. All Rights Reserved.
+# 
+# Novell hereby grants You a royalty-free, non-exclusive license to use
+# this Novell sample code in extending the applicable Novell product.
+# 
+# THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE WORK OR THE USE OR OTHER DEALINGS IN THE WORK.
+#
+# eDirectory schema extensions for sample/test data
+#
+# See rfc2252 for information on attribute syntax definitions
+#   String = 1.3.6.1.4.1.1466.115.121.1.15
+#   Boolean = 1.3.6.1.4.1.1466.115.121.1.7
+#   Octet String = 1.3.6.1.4.1.1466.115.121.1.40
+#   DN = 1.3.6.1.4.1.1466.115.121.1.12
+
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( sampleDeviceType-oid NAME 'sampleDeviceType' 
+  DESC 'Device type used for EPM sample' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE)
+
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( sampleDeviceModel-oid NAME 'sampleDeviceModel' 
+  DESC 'Device type used for EPM sample data' 
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE)
+
+dn: cn=schema
+changetype: modify
+add: objectclasses
+objectClasses: ( sampleDeviceAux-oid NAME 'sampleDeviceAux' DESC 'Extended Device type'
+ AUXILIARY MAY ( sampleDeviceType $ sampleDeviceModel ) X-NDS_NOT_CONTAINER '1' )
+
+dn: cn=schema
+changetype: modify
+add: attributeTypes
+attributeTypes: ( sampleDeviceDN-oid NAME 'sampleDeviceDN' 
+  DESC 'Device DN'
+  SYNTAX 1.3.6.1.4.1.1466.115.121.1.12)
+
+dn: cn=schema
+changetype: modify
+add: objectclasses
+objectClasses: ( sampleUserDeviceAux-oid NAME 'sampleUserDeviceAux' DESC 'Device list for user' 
+ AUXILIARY MAY ( sampleDeviceDN) X-NDS_NOT_CONTAINER '1' )
+
